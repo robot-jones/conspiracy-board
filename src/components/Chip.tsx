@@ -24,8 +24,8 @@ export default function Chip({
         "text-[13px] font-mono tracking-[0.01em] border transition-all",
         "cursor-pointer disabled:cursor-not-allowed disabled:opacity-40",
         selected
-          ? "border-thread bg-thread-light text-[#3C3489]"
-          : "border-pin bg-white text-ink",
+          ? "border-thread bg-thread-light text-[#3C3489] dark:text-thread"
+          : "border-pin bg-surface text-ink",
       ].join(" ")}
     >
       <span className="text-[15px]">{subject.symbol}</span>

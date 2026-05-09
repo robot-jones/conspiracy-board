@@ -88,7 +88,7 @@ export default function Board({ subjects, connections }: Props) {
               width="80"
               height="18"
               rx="9"
-              fill="white"
+              style={{ fill: "var(--color-surface)" }}
               stroke={color}
               strokeWidth="0.75"
               opacity="0.92"
@@ -115,8 +115,7 @@ export default function Board({ subjects, connections }: Props) {
             cx={n.x}
             cy={n.y}
             r="24"
-            fill="white"
-            stroke="#D3D1C7"
+            style={{ fill: "var(--color-surface)", stroke: "var(--color-pin)" }}
             strokeWidth="1"
           />
           <text
@@ -134,7 +133,7 @@ export default function Board({ subjects, connections }: Props) {
             textAnchor="middle"
             fontSize="9"
             fontFamily="'DM Mono', monospace"
-            fill="#5F5E5A"
+            style={{ fill: "var(--color-slate)" }}
             letterSpacing="0.04em"
           >
             {n.name.toUpperCase()}

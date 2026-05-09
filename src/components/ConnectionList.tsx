@@ -5,12 +5,12 @@ import { isConnectionMatched } from "@/lib/scoring";
 
 // Static lookup so Tailwind scans these literal class strings.
 const BADGE_CLASSES: Record<RelationshipType, string> = {
-  Controls: "bg-[#FCEBEB] text-[#E24B4A] border-[#E24B4A]",
-  Masks: "bg-[#EEEDFE] text-[#7F77DD] border-[#7F77DD]",
-  Signals: "bg-[#E1F5EE] text-[#1D9E75] border-[#1D9E75]",
-  Harvests: "bg-[#FAEEDA] text-[#BA7517] border-[#BA7517]",
-  "Is the same as": "bg-[#E6F1FB] text-[#378ADD] border-[#378ADD]",
-  "Distracts from": "bg-[#FBEAF0] text-[#D4537E] border-[#D4537E]",
+  Controls:        "bg-[#FCEBEB] dark:bg-[#3D1212] text-[#E24B4A] dark:text-[#FF7575] border-[#E24B4A]",
+  Masks:           "bg-[#EEEDFE] dark:bg-[#252244] text-[#7F77DD] dark:text-[#A09AEE] border-[#7F77DD]",
+  Signals:         "bg-[#E1F5EE] dark:bg-[#0E2E20] text-[#1D9E75] dark:text-[#3EC99A] border-[#1D9E75]",
+  Harvests:        "bg-[#FAEEDA] dark:bg-[#2E1A00] text-[#BA7517] dark:text-[#E0972A] border-[#BA7517]",
+  "Is the same as":"bg-[#E6F1FB] dark:bg-[#0E2035] text-[#378ADD] dark:text-[#60AAFF] border-[#378ADD]",
+  "Distracts from":"bg-[#FBEAF0] dark:bg-[#3A0E20] text-[#D4537E] dark:text-[#FF80A8] border-[#D4537E]",
 };
 
 interface Props {
@@ -22,7 +22,7 @@ interface Props {
 
 export default function ConnectionList({ connections, onDelete, submitted, solution }: Props) {
   return (
-    <div className="bg-white border border-pin rounded-xl p-4">
+    <div className="bg-surface border border-pin rounded-xl p-4">
       <div className="text-[10px] font-mono tracking-[0.12em] text-stone uppercase mb-2.5">
         Connections ({connections.length})
       </div>
@@ -32,7 +32,7 @@ export default function ConnectionList({ connections, onDelete, submitted, solut
           return (
             <div
               key={i}
-              className="flex items-center gap-2 px-2.5 py-[7px] rounded-lg bg-white border border-[#E8E7E0] font-mono text-[12px]"
+              className="flex items-center gap-2 px-2.5 py-[7px] rounded-lg bg-surface border border-pin font-mono text-[12px]"
             >
               {matched !== null && (
                 <span className={matched ? "text-[#1D9E75]" : "text-[#E24B4A]"}>

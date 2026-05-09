@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: applies dark: variants when .dark is on any ancestor */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --font-mono: var(--font-dm-mono), monospace;
 }
@@ -13,6 +16,19 @@
   --color-ash:          #B4B2A9;
   --color-thread:       #7F77DD;
   --color-thread-light: #EEEDFE;
+  --color-surface:      #FFFFFF;
+}
+
+.dark {
+  --color-cork:         #1E1E1C;
+  --color-pin:          #3D3B36;
+  --color-ink:          #EDEBE6;
+  --color-slate:        #9E9C96;
+  --color-stone:        #888780;
+  --color-ash:          #727069;
+  --color-thread:       #A09AEE;
+  --color-thread-light: #26243C;
+  --color-surface:      #262422;
 }
 
 * {

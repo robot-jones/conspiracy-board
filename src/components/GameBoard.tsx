@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Connection, ConnectionBuilder, Puzzle, Subject } from "@/types";
 import { INITIAL_BUILDER, getBuilderStatus } from "@/types";
 import { scoreAttempt, getMissedConnections } from "@/lib/scoring";
@@ -23,6 +23,22 @@ export default function GameBoard({ puzzle }: Props) {
   const [connections, setConnections] = useState<Connection[]>([]);
   const [builder, setBuilder] = useState<ConnectionBuilder>(INITIAL_BUILDER);
   const [submitted, setSubmitted] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleDark = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
 
   const status = getBuilderStatus(builder);
 
@@ -50,7 +66,7 @@ export default function GameBoard({ puzzle }: Props) {
 
   return (
     <div className="min-h-screen bg-cork font-mono">
-      <header className="border-b border-pin bg-white px-6 py-3.5 flex items-baseline justify-between">
+      <header className="border-b border-pin bg-surface px-6 py-3.5 flex items-baseline justify-between">
         <div>
           <span className="text-[10px] tracking-[0.14em] text-stone">
             {formatPuzzleDate(puzzle.date)} —{" "}
@@ -59,15 +75,24 @@ export default function GameBoard({ puzzle }: Props) {
             THE CONSPIRACY BOARD
           </span>
         </div>
-        <div className="text-[10px] text-ash tracking-[0.06em]">
-          {score
-            ? `${score.matched} / ${score.total} FOUND`
-            : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
+        <div className="flex items-center gap-3">
+          <div className="text-[10px] text-ash tracking-[0.06em]">
+            {score
+              ? `${score.matched} / ${score.total} FOUND`
+              : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
+          </div>
+          <button
+            onClick={toggleDark}
+            className="text-[14px] text-ash hover:text-stone bg-transparent border-none cursor-pointer leading-none"
+            aria-label="Toggle dark mode"
+          >
+            {isDark ? "☀" : "☾"}
+          </button>
         </div>
       </header>
 
       <div className="max-w-[600px] mx-auto px-4">
-        <div className="bg-white border border-pin rounded-xl mt-5 mb-4 overflow-hidden">
+        <div className="bg-surface border border-pin rounded-xl mt-5 mb-4 overflow-hidden">
           <Board subjects={puzzle.subjects} connections={connections} />
         </div>
 
@@ -89,14 +114,14 @@ export default function GameBoard({ puzzle }: Props) {
         {!submitted && status === "IDLE" && connections.length > 0 && (
           <button
             onClick={() => setSubmitted(true)}
-            className="w-full py-[9px] rounded-lg bg-ink border-none text-white text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] transition-colors mb-4"
+            className="w-full py-[9px] rounded-lg bg-ink border-none text-white dark:text-cork text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] dark:hover:bg-[#D5D3CE] transition-colors mb-4"
           >
             SUBMIT
           </button>
         )}
 
         {submitted && score && (
-          <div className="bg-white border border-pin rounded-xl p-4 mb-4">
+          <div className="bg-surface border border-pin rounded-xl p-4 mb-4">
             <div className="text-[10px] font-mono tracking-[0.12em] text-stone uppercase mb-3">
               Result
             </div>
@@ -119,7 +144,7 @@ export default function GameBoard({ puzzle }: Props) {
                   {missed.map((conn, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 px-2.5 py-[7px] rounded-lg bg-cork border border-[#E8E7E0] font-mono text-[12px] text-ash"
+                      className="flex items-center gap-2 px-2.5 py-[7px] rounded-lg bg-cork border border-pin font-mono text-[12px] text-ash"
                     >
                       <span>{conn.source.symbol} {conn.source.name}</span>
                       <span className="text-pin">→</span>

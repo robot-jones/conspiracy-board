@@ -56,7 +56,7 @@ export default function ConnectionBuilderUI({
     : -1;
 
   return (
-    <div className="bg-white border border-pin rounded-xl p-4 mb-4">
+    <div className="bg-surface border border-pin rounded-xl p-4 mb-4">
       <div className="flex justify-between items-center mb-3.5">
         <div className="text-[10px] font-mono tracking-[0.12em] text-stone uppercase">
           {isActive ? `Step: ${STEP_LABELS[status]}` : STEP_LABELS.IDLE}
@@ -183,7 +183,7 @@ export default function ConnectionBuilderUI({
         <div className="flex gap-2">
           <button
             onClick={onConfirm}
-            className="flex-1 py-[9px] rounded-lg bg-ink border-none text-white text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] transition-colors"
+            className="flex-1 py-[9px] rounded-lg bg-ink border-none text-white dark:text-cork text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] dark:hover:bg-[#D5D3CE] transition-colors"
           >
             CONFIRM
           </button>
