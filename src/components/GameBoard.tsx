@@ -7,6 +7,13 @@ import Board from "@/components/Board";
 import ConnectionBuilderUI from "@/components/ConnectionBuilder";
 import ConnectionList from "@/components/ConnectionList";
 
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+function formatPuzzleDate(dateStr: string): string {
+  const [, month, day] = dateStr.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${day}`;
+}
+
 interface Props {
   puzzle: Puzzle;
 }
@@ -22,7 +29,7 @@ export default function GameBoard({ puzzle }: Props) {
     if (s.name === builder.source.name) return false;
     return !connections.some(
       (c) =>
-        c.source.name === builder.source!.name && // builder.source checked above
+        c.source.name === builder.source!.name &&
         c.type === builder.type &&
         c.target.name === s.name
     );
@@ -41,14 +48,14 @@ export default function GameBoard({ puzzle }: Props) {
       <header className="border-b border-pin bg-white px-6 py-3.5 flex items-baseline justify-between">
         <div>
           <span className="text-[10px] tracking-[0.14em] text-stone">
-            DAY {puzzle.day} —{" "}
+            {formatPuzzleDate(puzzle.date)} —{" "}
           </span>
           <span className="text-base font-medium text-ink tracking-[0.04em]">
             THE CONSPIRACY BOARD
           </span>
         </div>
         <div className="text-[10px] text-ash tracking-[0.06em]">
-          {connections.length} CONNECTION{connections.length !== 1 ? "S" : ""}
+          {connections.length} / {puzzle.solution.connections.length} CONNECTIONS
         </div>
       </header>
 

@@ -55,9 +55,14 @@ export function getBuilderStatus(builder: ConnectionBuilder): BuilderStatus {
   return "COMPLETE";
 }
 
+export interface Solution {
+  connections: Connection[];
+}
+
 export interface Puzzle {
-  day: number;
+  date: string; // ISO date, e.g. "2026-05-09"
   subjects: Subject[];
+  solution: Solution;
 }
 
 // Hex color values for each relationship type — used directly in SVG attributes and
