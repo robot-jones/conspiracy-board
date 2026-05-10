@@ -64,7 +64,7 @@ export default function ConnectionBuilderUI({
         {isActive && (
           <button
             onClick={onCancel}
-            className="text-[11px] font-mono tracking-[0.06em] text-ash hover:text-stone bg-transparent border-none cursor-pointer"
+            className="text-[11px] font-mono tracking-[0.06em] text-[#E24B4A] hover:text-[#C0392B] bg-transparent border-none cursor-pointer"
           >
             CANCEL
           </button>
@@ -189,7 +189,7 @@ export default function ConnectionBuilderUI({
           </button>
           <button
             onClick={onCancel}
-            className="px-[18px] py-[9px] rounded-lg bg-transparent border border-pin text-stone text-[12px] font-mono tracking-[0.06em] cursor-pointer hover:border-stone transition-colors"
+            className="px-[18px] py-[9px] rounded-lg bg-transparent border border-pin text-[#E24B4A] text-[12px] font-mono tracking-[0.06em] cursor-pointer hover:border-[#E24B4A] transition-colors"
           >
             CANCEL
           </button>

@@ -116,7 +116,7 @@ export default function GameBoard({ puzzle }: Props) {
         {!submitted && status === "IDLE" && connections.length > 0 && (
           <button
             onClick={() => setSubmitted(true)}
-            className="w-full py-[9px] rounded-lg bg-ink border-none text-white dark:text-cork text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] dark:hover:bg-[#D5D3CE] transition-colors mb-4"
+            className="w-full py-[9px] rounded-lg bg-[#1D9E75] border-none text-white text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#178A63] transition-colors mb-4"
           >
             SUBMIT
           </button>
@@ -167,6 +167,7 @@ export default function GameBoard({ puzzle }: Props) {
             onDelete={(i) =>
               setConnections((prev) => prev.filter((_, j) => j !== i))
             }
+            onClearAll={() => setConnections([])}
             submitted={submitted}
             solution={puzzle.solution}
           />

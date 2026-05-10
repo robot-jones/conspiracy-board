@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Connection, RelationshipType, Solution } from "@/types";
 import { isConnectionMatched } from "@/lib/scoring";
 
@@ -16,15 +17,50 @@ const BADGE_CLASSES: Record<RelationshipType, string> = {
 interface Props {
   connections: Connection[];
   onDelete: (index: number) => void;
+  onClearAll?: () => void;
   submitted?: boolean;
   solution?: Solution;
 }
 
-export default function ConnectionList({ connections, onDelete, submitted, solution }: Props) {
+export default function ConnectionList({ connections, onDelete, onClearAll, submitted, solution }: Props) {
+  const [confirming, setConfirming] = useState(false);
+
+  const handleClearClick = () => setConfirming(true);
+  const handleClearConfirm = () => { setConfirming(false); onClearAll?.(); };
+  const handleClearCancel = () => setConfirming(false);
+
   return (
     <div className="bg-surface border border-pin rounded-xl p-4">
-      <div className="text-[10px] font-mono tracking-[0.12em] text-stone uppercase mb-2.5">
-        Connections ({connections.length})
+      <div className="flex items-center justify-between mb-2.5">
+        <div className="text-[10px] font-mono tracking-[0.12em] text-stone uppercase">
+          Connections ({connections.length})
+        </div>
+        {!submitted && onClearAll && (
+          confirming ? (
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono text-stone">SURE?</span>
+              <button
+                onClick={handleClearConfirm}
+                className="text-[10px] font-mono tracking-[0.06em] text-[#E24B4A] hover:text-[#C0392B] bg-transparent border-none cursor-pointer"
+              >
+                YES
+              </button>
+              <button
+                onClick={handleClearCancel}
+                className="text-[10px] font-mono tracking-[0.06em] text-stone hover:text-ink bg-transparent border-none cursor-pointer"
+              >
+                NO
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleClearClick}
+              className="text-[10px] font-mono tracking-[0.06em] text-[#E24B4A] hover:text-[#C0392B] bg-transparent border-none cursor-pointer"
+            >
+              CLEAR ALL
+            </button>
+          )
+        )}
       </div>
       <div className="flex flex-col gap-1.5">
         {connections.map((conn, i) => {
