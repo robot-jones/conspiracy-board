@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Connection, ConnectionBuilder, Puzzle, Subject } from "@/types";
 import { INITIAL_BUILDER, getBuilderStatus } from "@/types";
 import { scoreAttempt, getMissedConnections } from "@/lib/scoring";
@@ -23,23 +23,6 @@ export default function GameBoard({ puzzle }: Props) {
   const [connections, setConnections] = useState<Connection[]>([]);
   const [builder, setBuilder] = useState<ConnectionBuilder>(INITIAL_BUILDER);
   const [submitted, setSubmitted] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark") {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleDark = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
-
   const status = getBuilderStatus(builder);
 
   const score = submitted ? scoreAttempt(connections, puzzle.solution) : null;
@@ -65,7 +48,7 @@ export default function GameBoard({ puzzle }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-cork font-mono">
+    <div className="min-h-screen bg-cork font-mono flex flex-col">
       <header className="border-b border-pin bg-surface px-6 py-3.5">
         <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1.5 sm:gap-0">
           <div className="text-center sm:text-left">
@@ -80,25 +63,16 @@ export default function GameBoard({ puzzle }: Props) {
             <span className="sm:hidden text-[10px] tracking-[0.14em] text-stone">
               {formatPuzzleDate(puzzle.date)}
             </span>
-            <div className="flex items-center gap-3">
-              <div className="text-[10px] text-ash tracking-[0.06em]">
-                {score
-                  ? `${score.matched} / ${score.total} FOUND`
-                  : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
-              </div>
-              <button
-                onClick={toggleDark}
-                className="text-[14px] text-ash hover:text-stone bg-transparent border-none cursor-pointer leading-none"
-                aria-label="Toggle dark mode"
-              >
-                {isDark ? "☀" : "☾"}
-              </button>
+            <div className="text-[10px] text-ash tracking-[0.06em]">
+              {score
+                ? `${score.matched} / ${score.total} FOUND`
+                : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
             </div>
           </div>
         </div>
       </header>
 
-      <div className="max-w-[600px] mx-auto px-4">
+      <div className="max-w-[600px] mx-auto px-4 pb-6 flex-1 w-full">
         <div className="bg-[#7A5230] rounded-xl mt-5 mb-4 p-2.5">
           <div className="bg-[#C4A472] overflow-hidden rounded-lg">
             <Board subjects={puzzle.subjects} connections={connections} />
@@ -180,6 +154,12 @@ export default function GameBoard({ puzzle }: Props) {
           />
         )}
       </div>
+
+      <footer className="border-t border-pin bg-surface px-6 py-3.5">
+        <div className="flex items-center justify-center">
+          <div className="text-[10px] text-ash tracking-[0.06em]">courtesy of RobotJones and Claude Code</div>
+        </div>
+      </footer>
     </div>
   );
 }
