@@ -66,28 +66,35 @@ export default function GameBoard({ puzzle }: Props) {
 
   return (
     <div className="min-h-screen bg-cork font-mono">
-      <header className="border-b border-pin bg-surface px-6 py-3.5 flex items-baseline justify-between">
-        <div>
-          <span className="text-[10px] tracking-[0.14em] text-stone">
-            {formatPuzzleDate(puzzle.date)} —{" "}
-          </span>
-          <span className="text-base font-medium text-ink tracking-[0.04em]">
-            THE CONSPIRACY BOARD
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="text-[10px] text-ash tracking-[0.06em]">
-            {score
-              ? `${score.matched} / ${score.total} FOUND`
-              : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
+      <header className="border-b border-pin bg-surface px-6 py-3.5">
+        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1.5 sm:gap-0">
+          <div className="text-center sm:text-left">
+            <span className="hidden sm:inline text-[10px] tracking-[0.14em] text-stone">
+              {formatPuzzleDate(puzzle.date)} —{" "}
+            </span>
+            <span className="text-base font-medium text-ink tracking-[0.04em]">
+              THE CONSPIRACY BOARD
+            </span>
           </div>
-          <button
-            onClick={toggleDark}
-            className="text-[14px] text-ash hover:text-stone bg-transparent border-none cursor-pointer leading-none"
-            aria-label="Toggle dark mode"
-          >
-            {isDark ? "☀" : "☾"}
-          </button>
+          <div className="flex items-center justify-between sm:justify-end gap-3">
+            <span className="sm:hidden text-[10px] tracking-[0.14em] text-stone">
+              {formatPuzzleDate(puzzle.date)}
+            </span>
+            <div className="flex items-center gap-3">
+              <div className="text-[10px] text-ash tracking-[0.06em]">
+                {score
+                  ? `${score.matched} / ${score.total} FOUND`
+                  : `${connections.length} / ${puzzle.solution.connections.length} CONNECTIONS`}
+              </div>
+              <button
+                onClick={toggleDark}
+                className="text-[14px] text-ash hover:text-stone bg-transparent border-none cursor-pointer leading-none"
+                aria-label="Toggle dark mode"
+              >
+                {isDark ? "☀" : "☾"}
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
