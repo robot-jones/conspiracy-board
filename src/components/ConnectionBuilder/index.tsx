@@ -92,31 +92,45 @@ export default function ConnectionBuilderUI({
 
       {/* In-progress summary */}
       {isActive && (
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-cork mb-3.5 text-[12px]">
-          <span className={builder.source ? "text-ink" : "text-ash"}>
-            {builder.source
-              ? `${builder.source.symbol} ${builder.source.name}`
-              : "_ _ _"}
-          </span>
-          <span className="text-pin">→</span>
-          <span
-            className="font-medium"
-            style={
-              builder.type
-                ? { color: RELATIONSHIP_COLORS[builder.type].color }
-                : undefined
-            }
-          >
-            <span className={!builder.type ? "text-ash font-normal" : ""}>
-              {builder.type ? builder.type.toUpperCase() : "_ _ _"}
-            </span>
-          </span>
-          <span className="text-pin">→</span>
-          <span className={builder.target ? "text-ink" : "text-ash"}>
-            {builder.target
-              ? `${builder.target.symbol} ${builder.target.name}`
-              : "_ _ _"}
-          </span>
+        <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1.5 mb-3.5">
+          <div className="flex flex-col items-center justify-center px-2 py-2.5 rounded-lg bg-cork min-h-[52px] text-center gap-0.5">
+            {builder.source ? (
+              <>
+                <span className="text-[15px] leading-none">{builder.source.symbol}</span>
+                <span className="text-[9px] font-mono text-ink tracking-[0.05em]">{builder.source.name.toUpperCase()}</span>
+              </>
+            ) : (
+              <span className="text-[9px] font-mono text-ash tracking-[0.1em]">FROM</span>
+            )}
+          </div>
+
+          <span className="text-pin text-[10px]">→</span>
+
+          <div className="flex flex-col items-center justify-center px-2 py-2.5 rounded-lg bg-cork min-h-[52px] text-center">
+            {builder.type ? (
+              <span
+                className="text-[9px] font-mono font-bold tracking-[0.05em] leading-snug"
+                style={{ color: RELATIONSHIP_COLORS[builder.type].color }}
+              >
+                {builder.type.toUpperCase()}
+              </span>
+            ) : (
+              <span className="text-[9px] font-mono text-ash tracking-[0.1em]">VIA</span>
+            )}
+          </div>
+
+          <span className="text-pin text-[10px]">→</span>
+
+          <div className="flex flex-col items-center justify-center px-2 py-2.5 rounded-lg bg-cork min-h-[52px] text-center gap-0.5">
+            {builder.target ? (
+              <>
+                <span className="text-[15px] leading-none">{builder.target.symbol}</span>
+                <span className="text-[9px] font-mono text-ink tracking-[0.05em]">{builder.target.name.toUpperCase()}</span>
+              </>
+            ) : (
+              <span className="text-[9px] font-mono text-ash tracking-[0.1em]">TO</span>
+            )}
+          </div>
         </div>
       )}
 
