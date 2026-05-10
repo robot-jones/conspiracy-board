@@ -197,7 +197,7 @@ export default function ConnectionBuilderUI({
         <div className="flex gap-2">
           <button
             onClick={onConfirm}
-            className="flex-1 py-[9px] rounded-lg bg-ink border-none text-white dark:text-cork text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#444440] dark:hover:bg-[#D5D3CE] transition-colors"
+            className="flex-1 py-[9px] rounded-lg bg-[#2C7BE5] border-none text-white text-[12px] font-mono tracking-[0.07em] font-medium cursor-pointer hover:bg-[#2168C7] transition-colors"
           >
             CONFIRM
           </button>
