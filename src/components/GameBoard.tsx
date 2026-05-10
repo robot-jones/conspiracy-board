@@ -92,8 +92,10 @@ export default function GameBoard({ puzzle }: Props) {
       </header>
 
       <div className="max-w-[600px] mx-auto px-4">
-        <div className="bg-surface border border-pin rounded-xl mt-5 mb-4 overflow-hidden">
-          <Board subjects={puzzle.subjects} connections={connections} />
+        <div className="bg-[#7A5230] rounded-xl mt-5 mb-4 p-2.5">
+          <div className="bg-[#C4A472] overflow-hidden rounded-lg">
+            <Board subjects={puzzle.subjects} connections={connections} />
+          </div>
         </div>
 
         {!submitted && (

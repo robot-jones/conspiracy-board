@@ -31,7 +31,7 @@ interface Props {
 
 export default function Board({ subjects, connections }: Props) {
   const W = 560,
-    H = 320;
+    H = 340;
   const cx = W / 2,
     cy = H / 2;
   const nodes = getNodePositions(subjects, cx, cy, 210, 128);
@@ -50,7 +50,7 @@ export default function Board({ subjects, connections }: Props) {
         const len = Math.sqrt(dx * dx + dy * dy) || 1;
         const ux = dx / len,
           uy = dy / len;
-        const pad = 28;
+        const pad = 34;
         const x1 = s.x + ux * pad,
           y1 = s.y + uy * pad;
         const x2 = t.x - ux * pad,
@@ -88,15 +88,16 @@ export default function Board({ subjects, connections }: Props) {
               width="80"
               height="18"
               rx="9"
-              style={{ fill: "var(--color-surface)" }}
+              fill="#FAFAF8"
               stroke={color}
               strokeWidth="0.75"
               opacity="0.92"
             />
             <text
               x={mx}
-              y={my + 5}
+              y={my}
               textAnchor="middle"
+              dominantBaseline="central"
               fontSize="8.5"
               fontFamily="'DM Mono', monospace"
               fill={color}
@@ -111,29 +112,45 @@ export default function Board({ subjects, connections }: Props) {
 
       {nodes.map((n, i) => (
         <g key={i}>
-          <circle
-            cx={n.x}
-            cy={n.y}
-            r="24"
-            style={{ fill: "var(--color-surface)", stroke: "var(--color-pin)" }}
-            strokeWidth="1"
+          {/* shadow */}
+          <rect
+            x={n.x - 23}
+            y={n.y - 17}
+            width={48}
+            height={40}
+            rx={2}
+            fill="rgba(58,42,20,0.22)"
           />
+          {/* card */}
+          <rect
+            x={n.x - 24}
+            y={n.y - 20}
+            width={48}
+            height={40}
+            rx={2}
+            fill="#FAFAF8"
+          />
+          {/* pushpin */}
+          <circle cx={n.x} cy={n.y - 21} r={4} fill="#C0392B" />
+          <circle cx={n.x - 1} cy={n.y - 22} r={1.5} fill="#E8756A" />
+          {/* emoji */}
           <text
             x={n.x}
-            y={n.y + 1}
+            y={n.y + 4}
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="18"
+            fontSize="17"
           >
             {n.symbol}
           </text>
+          {/* name */}
           <text
             x={n.x}
-            y={n.y + 34}
+            y={n.y + 31}
             textAnchor="middle"
-            fontSize="9"
+            fontSize="8.5"
             fontFamily="'DM Mono', monospace"
-            style={{ fill: "var(--color-slate)" }}
+            fill="#3A2A14"
             letterSpacing="0.04em"
           >
             {n.name.toUpperCase()}
