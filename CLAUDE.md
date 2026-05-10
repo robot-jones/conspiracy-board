@@ -4,7 +4,7 @@
 
 A daily browser puzzle game. Players connect 10 subjects using typed, directional relationships to build a conspiracy theory graph. Think Wordle meets a corkboard covered in red string.
 
-The game is in early development. The core connection-building UI exists; puzzles, scoring, and sharing are not yet built.
+The game is in early development. The core connection-building UI and scoring exist; puzzle rotation and sharing are not yet built.
 
 ---
 
@@ -85,9 +85,7 @@ If your `create-next-app` scaffold included an `AGENTS.md` (and a `CLAUDE.md` re
 ## What's Not Built Yet
 
 - Puzzle data layer (daily puzzle fetching, rotation)
-- Scoring logic
 - Results / share card
-- The board's arrow labels truncate poorly for "Is the same as" — abbreviate to "Same as" on the SVG canvas only
 
 ---
 
